@@ -27,11 +27,7 @@ package question2;
  */
 public class FahrenheitCelsiusTest extends junit.framework.TestCase
 {
-    // Définissez ici les variables d'instance nécessaires à vos engagements;
-    // Vous pouvez également les saisir automatiquement du présentoir
-    // à l'aide du menu contextuel "Présentoir --> Engagements".
-    // Notez cependant que ce dernier ne peut saisir les objets primitifs
-    // du présentoir (les objets sans constructeur, comme int, float, etc.).
+    private FahrenheitCelsius converter;
 
     /**
      * Constructeur de la classe-test FahrenheitCelsiusTest
@@ -47,7 +43,7 @@ public class FahrenheitCelsiusTest extends junit.framework.TestCase
      */
     protected void setUp() // throws java.lang.Exception
     {
-        // Initialisez ici vos engagements
+        converter = new FahrenheitCelsius();
 
     }
 
@@ -58,7 +54,7 @@ public class FahrenheitCelsiusTest extends junit.framework.TestCase
      */
     protected void tearDown() // throws java.lang.Exception
     {
-        //Libérez ici les ressources engagées par setUp()
+         converter = null;
     }
     
     /**
