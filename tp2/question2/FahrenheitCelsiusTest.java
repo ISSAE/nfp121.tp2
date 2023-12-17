@@ -4,8 +4,8 @@ package question2;
 /**
  * Classe-test FahrenheitCelsiusTest.
  *
- * @author  (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Ali.z
+ * @version 17/12/2023
  *
  * Les classes-test sont documentées ici :
  * http://junit.sourceforge.net/javadoc/junit/framework/TestCase.html
@@ -27,11 +27,7 @@ package question2;
  */
 public class FahrenheitCelsiusTest extends junit.framework.TestCase
 {
-    // Définissez ici les variables d'instance nécessaires à vos engagements;
-    // Vous pouvez également les saisir automatiquement du présentoir
-    // à l'aide du menu contextuel "Présentoir --> Engagements".
-    // Notez cependant que ce dernier ne peut saisir les objets primitifs
-    // du présentoir (les objets sans constructeur, comme int, float, etc.).
+    private FahrenheitCelsius converter;
 
     /**
      * Constructeur de la classe-test FahrenheitCelsiusTest
@@ -47,7 +43,7 @@ public class FahrenheitCelsiusTest extends junit.framework.TestCase
      */
     protected void setUp() // throws java.lang.Exception
     {
-        // Initialisez ici vos engagements
+        converter = new FahrenheitCelsius();
 
     }
 
@@ -58,15 +54,33 @@ public class FahrenheitCelsiusTest extends junit.framework.TestCase
      */
     protected void tearDown() // throws java.lang.Exception
     {
-        //Libérez ici les ressources engagées par setUp()
+         converter = null;
+    }
+    
+    /**
+     * Cas de test pour la conversion valide de Fahrenheit a Celsius.
+     */
+    public void testValidFahrenheitToCelsiusConversion() {
+        assertEquals("0 °F -> -17.7 °C ?", -17.7, converter.fahrenheitEnCelsius(0), 0.1);
+        assertEquals("100 °F -> 37.7 °C ?", 37.7, converter.fahrenheitEnCelsius(100), 0.1);
+        assertEquals("2000 °F -> 1093.3 °C ?", 1093.3, converter.fahrenheitEnCelsius(2000), 0.1);
+        assertEquals("54 °F -> 12.2 °C ?", 12.2, converter.fahrenheitEnCelsius(54), 0.1);
     }
 
     /**
-     * Il ne vous reste plus qu'à définir une ou plusieurs méthodes de test.
-     * Ces méthodes doivent vérifier les résultats attendus à l'aide d'assertions
-     * assertTrue(<boolean>).
-     * Par convention, leurs noms devraient débuter par "test".
-     * Vous pouvez ébaucher le corps grâce au menu contextuel "Enregistrer une méthode de test".
+     * Cas de test pour la gestion des entrées invalides (NumberFormatException).
      */
+    public void testInvalidInputHandling() {
+        String[] invalidInputs = {"a", "ZZ", "y"};
+        for (String input : invalidInputs) {
+            try {
+                FahrenheitCelsius.fahrenheitEnCelsius(Integer.parseInt(input));
+                fail("NumberFormatException attendue pour l'entree : " + input);
+            } catch (NumberFormatException e) {
+                assertNotNull("NumberFormatException levée pour l'entree : " + input, e);
+                assertEquals("Le message d'erreur devrait contenir l'entree", "For input string: \"" + input + "\"", e.getMessage());
+            }
+        }
+    }
 
 }
